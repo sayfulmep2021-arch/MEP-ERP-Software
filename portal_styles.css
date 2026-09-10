@@ -8665,259 +8665,204 @@
    ============================================================================= */
 
 /* -----------------------------------------------------------------------------
-   ITEM 1: Menu Bar: Times New Roman Typography & Zero-Jitter Rock-Solid Hover
+   ITEM 1: Menu Bar: Executive Corporate Star Icons, Times New Roman & Pastel Lift Hover
+   Scoped strictly to #dashboardSidebar on index.html (Screenshot Marks 1 & 2)
    ----------------------------------------------------------------------------- */
 #dashboardSidebar,
-.dashboard-sidebar-container,
-.mep-frozen-sidebar,
-.mep-module-accordion,
-.mep-module-heading,
-.mep-mod-title,
-.mep-mod-info {
+#dashboardSidebar .dashboard-sidebar-container,
+#dashboardSidebar .mep-frozen-sidebar,
+#dashboardSidebar .mep-module-accordion,
+#dashboardSidebar .mep-module-heading,
+#dashboardSidebar .mep-mod-title,
+#dashboardSidebar .mep-mod-info {
     font-family: 'Times New Roman', Times, serif !important;
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
     text-rendering: optimizeLegibility !important;
 }
 
-.mep-module-heading {
-    transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease !important;
-    transform: none !important;
-    -webkit-transform: none !important;
-    will-change: auto !important;
+#dashboardSidebar .mep-sidebar-body {
+    padding: 10px 8px 24px !important;
 }
 
-/* ZERO Jitter / Zero Shaking / Zero Jumping on Hover (কোন প্রকার কাপাকাপি বা লাফালাফি নেই) */
-.mep-module-heading:hover,
-.mep-module-heading.is-hovered {
-    transform: none !important;
-    -webkit-transform: none !important;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08) !important;
-    z-index: 1 !important;
+#dashboardSidebar .mep-module-accordion {
+    margin-bottom: 3px !important;
 }
 
-.mep-mod-title {
+/* 1. Menu Bar Heading Card (Default State) */
+#dashboardSidebar .mep-module-heading {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 7.5px 9px !important;
+    min-height: 38px !important;
+    border-radius: 7px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-left: 3.5px solid transparent !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+    transform: translateY(0) !important;
+    -webkit-transform: translateY(0) !important;
+    transition: background 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    position: relative !important;
+    user-select: none !important;
+    box-sizing: border-box !important;
+}
+
+/* Left Content Alignment Wrapper */
+#dashboardSidebar .mep-mod-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+#dashboardSidebar .mep-mod-info {
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+/* 2. Uniform Small Deep Premium Blue Star (★) (Mark 1) */
+#dashboardSidebar .mep-mod-star,
+#dashboardSidebar .mep-mod-icon {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #1e40af !important; /* Deep Premium Blue (Tailwind Blue-800) - dignified, non-neon */
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease !important;
+}
+
+#dashboardSidebar .mep-mod-star svg,
+#dashboardSidebar .mep-mod-icon svg,
+#dashboardSidebar .mep-star-svg {
+    width: 13px !important;
+    height: 13px !important;
+    fill: currentColor !important;
+    display: block !important;
+}
+
+/* 3. Typography: Times New Roman Semi-bold (Mark 2) */
+#dashboardSidebar .mep-mod-title {
     font-family: 'Times New Roman', Times, serif !important;
-    font-size: 15px !important;
-    font-weight: 700 !important; /* True Times New Roman Bold (zero faux-bold blur) */
+    font-size: 14.5px !important;
+    font-weight: 600 !important; /* Semi-bold / Medium weight: refined executive balance */
     line-height: 1.35 !important;
-    color: #0f2942 !important;
-    letter-spacing: 0.2px !important;
+    letter-spacing: 0.3px !important;
+    color: #1e293b !important; /* Deep corporate slate */
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
     text-rendering: optimizeLegibility !important;
+    display: flex !important;
+    align-items: center !important;
+    transition: color 0.2s ease !important;
 }
 
-/* Soft Refined Pastel Highlight for each Menu Item upon Hover (Comfortable, Elegant & Professional) */
-/* 01: All Report Summary - Soft Azure Mist */
-.mep-heading-mep-acc-01:hover,
-.mep-heading-mep-acc-01.is-hovered {
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
-    border-left: 3.5px solid #2563eb !important;
-}
-.mep-heading-mep-acc-01:hover .mep-mod-title,
-.mep-heading-mep-acc-01.is-hovered .mep-mod-title {
-    color: #1e3a8a !important;
-}
-.mep-heading-mep-acc-01:hover .mep-mod-chevron,
-.mep-heading-mep-acc-01.is-hovered .mep-mod-chevron {
-    color: #2563eb !important;
-    background: rgba(37, 99, 235, 0.12) !important;
+/* Chevron */
+#dashboardSidebar .mep-mod-chevron {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #94a3b8 !important;
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0 !important;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease !important;
 }
 
-/* 02: Daily Check Report - Soft Warm Gold */
-.mep-heading-mep-acc-02:hover,
-.mep-heading-mep-acc-02.is-hovered {
-    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%) !important;
-    border-left: 3.5px solid #d97706 !important;
-}
-.mep-heading-mep-acc-02:hover .mep-mod-title,
-.mep-heading-mep-acc-02.is-hovered .mep-mod-title {
-    color: #78350f !important;
-}
-.mep-heading-mep-acc-02:hover .mep-mod-chevron,
-.mep-heading-mep-acc-02.is-hovered .mep-mod-chevron {
-    color: #d97706 !important;
-    background: rgba(217, 119, 6, 0.12) !important;
+/* 4. Premium Hover Interaction: Soft Pastel Blue Background + Subtle Floating Lift (Mark 3) */
+#dashboardSidebar .mep-module-heading:hover,
+#dashboardSidebar .mep-module-heading.is-hovered {
+    background: #edf5fd !important; /* Soft Premium Pastel Blue */
+    border-color: rgba(191, 219, 254, 0.6) !important;
+    border-left: 3.5px solid #60a5fa !important; /* Subtle pastel blue accent line */
+    transform: translateY(-1.5px) !important; /* Gentle floating / lift effect */
+    -webkit-transform: translateY(-1.5px) !important;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.09), 0 1px 3px rgba(15, 23, 42, 0.04) !important; /* Subtle depth shadow */
+    z-index: 2 !important;
 }
 
-/* 03: Report All Branch Fan - Soft Mint Green */
-.mep-heading-mep-acc-03:hover,
-.mep-heading-mep-acc-03.is-hovered {
-    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%) !important;
-    border-left: 3.5px solid #059669 !important;
-}
-.mep-heading-mep-acc-03:hover .mep-mod-title,
-.mep-heading-mep-acc-03.is-hovered .mep-mod-title {
-    color: #064e3b !important;
-}
-.mep-heading-mep-acc-03:hover .mep-mod-chevron,
-.mep-heading-mep-acc-03.is-hovered .mep-mod-chevron {
-    color: #059669 !important;
-    background: rgba(5, 150, 105, 0.12) !important;
+#dashboardSidebar .mep-module-heading:hover .mep-mod-title,
+#dashboardSidebar .mep-module-heading.is-hovered .mep-mod-title {
+    color: #0c4a6e !important; /* Deep executive navy blue */
 }
 
-/* 04: Closing (ERP) - Soft Coral Rose */
-.mep-heading-mep-acc-04:hover,
-.mep-heading-mep-acc-04.is-hovered {
-    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%) !important;
-    border-left: 3.5px solid #dc2626 !important;
-}
-.mep-heading-mep-acc-04:hover .mep-mod-title,
-.mep-heading-mep-acc-04.is-hovered .mep-mod-title {
-    color: #7f1d1d !important;
-}
-.mep-heading-mep-acc-04:hover .mep-mod-chevron,
-.mep-heading-mep-acc-04.is-hovered .mep-mod-chevron {
-    color: #dc2626 !important;
-    background: rgba(220, 38, 38, 0.12) !important;
+#dashboardSidebar .mep-module-heading:hover .mep-mod-star,
+#dashboardSidebar .mep-module-heading:hover .mep-mod-icon,
+#dashboardSidebar .mep-module-heading.is-hovered .mep-mod-star,
+#dashboardSidebar .mep-module-heading.is-hovered .mep-mod-icon {
+    color: #1d4ed8 !important; /* Rich vibrant blue */
+    transform: scale(1.1) !important;
+    -webkit-transform: scale(1.1) !important;
 }
 
-/* 05: All Monthly Report - Soft Lavender Violet */
-.mep-heading-mep-acc-05:hover,
-.mep-heading-mep-acc-05.is-hovered {
-    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%) !important;
-    border-left: 3.5px solid #7c3aed !important;
-}
-.mep-heading-mep-acc-05:hover .mep-mod-title,
-.mep-heading-mep-acc-05.is-hovered .mep-mod-title {
-    color: #4c1d95 !important;
-}
-.mep-heading-mep-acc-05:hover .mep-mod-chevron,
-.mep-heading-mep-acc-05.is-hovered .mep-mod-chevron {
-    color: #7c3aed !important;
-    background: rgba(124, 58, 237, 0.12) !important;
-}
-
-/* 06: All Yearly Report - Soft Periwinkle Indigo */
-.mep-heading-mep-acc-06:hover,
-.mep-heading-mep-acc-06.is-hovered {
-    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%) !important;
-    border-left: 3.5px solid #4f46e5 !important;
-}
-.mep-heading-mep-acc-06:hover .mep-mod-title,
-.mep-heading-mep-acc-06.is-hovered .mep-mod-title {
-    color: #312e81 !important;
-}
-.mep-heading-mep-acc-06:hover .mep-mod-chevron,
-.mep-heading-mep-acc-06.is-hovered .mep-mod-chevron {
-    color: #4f46e5 !important;
-    background: rgba(79, 70, 229, 0.12) !important;
-}
-
-/* 07: Reject Report - Soft Peach Amber */
-.mep-heading-mep-acc-07:hover,
-.mep-heading-mep-acc-07.is-hovered {
-    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%) !important;
-    border-left: 3.5px solid #ea580c !important;
-}
-.mep-heading-mep-acc-07:hover .mep-mod-title,
-.mep-heading-mep-acc-07.is-hovered .mep-mod-title {
-    color: #7c2d12 !important;
-}
-.mep-heading-mep-acc-07:hover .mep-mod-chevron,
-.mep-heading-mep-acc-07.is-hovered .mep-mod-chevron {
-    color: #ea580c !important;
-    background: rgba(234, 88, 12, 0.12) !important;
-}
-
-/* 08: Complete vs Pending - Soft Sky Cerulean */
-.mep-heading-mep-acc-08:hover,
-.mep-heading-mep-acc-08.is-hovered {
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%) !important;
-    border-left: 3.5px solid #0284c7 !important;
-}
-.mep-heading-mep-acc-08:hover .mep-mod-title,
-.mep-heading-mep-acc-08.is-hovered .mep-mod-title {
-    color: #075985 !important;
-}
-.mep-heading-mep-acc-08:hover .mep-mod-chevron,
-.mep-heading-mep-acc-08.is-hovered .mep-mod-chevron {
+#dashboardSidebar .mep-module-heading:hover .mep-mod-chevron,
+#dashboardSidebar .mep-module-heading.is-hovered .mep-mod-chevron {
     color: #0284c7 !important;
-    background: rgba(2, 132, 199, 0.12) !important;
 }
 
-/* 09: Fan Floor Closing Report - Soft Sage Emerald */
-.mep-heading-mep-acc-09:hover,
-.mep-heading-mep-acc-09.is-hovered {
-    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) !important;
-    border-left: 3.5px solid #16a34a !important;
-}
-.mep-heading-mep-acc-09:hover .mep-mod-title,
-.mep-heading-mep-acc-09.is-hovered .mep-mod-title {
-    color: #14532d !important;
-}
-.mep-heading-mep-acc-09:hover .mep-mod-chevron,
-.mep-heading-mep-acc-09.is-hovered .mep-mod-chevron {
-    color: #16a34a !important;
-    background: rgba(22, 163, 74, 0.12) !important;
+/* 5. Active State: Distinct Refined Premium Blue Highlight (Mark 4) */
+#dashboardSidebar .mep-module-accordion.is-open > .mep-module-heading,
+#dashboardSidebar .mep-module-heading.is-active-module {
+    background: #e0effe !important; /* Distinct Refined Premium Blue Highlight */
+    border-color: #bfdbfe !important;
+    border-left: 4px solid #0284c7 !important; /* Prominent Corporate Blue Active Line */
+    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.12) !important;
+    transform: translateY(0) !important;
+    -webkit-transform: translateY(0) !important;
+    z-index: 1 !important;
 }
 
-/* 10: Other Reports - Soft Slate Pearl */
-.mep-heading-mep-acc-10:hover,
-.mep-heading-mep-acc-10.is-hovered {
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
-    border-left: 3.5px solid #475569 !important;
-}
-.mep-heading-mep-acc-10:hover .mep-mod-title,
-.mep-heading-mep-acc-10.is-hovered .mep-mod-title {
-    color: #0f172a !important;
-}
-.mep-heading-mep-acc-10:hover .mep-mod-chevron,
-.mep-heading-mep-acc-10.is-hovered .mep-mod-chevron {
-    color: #475569 !important;
-    background: rgba(71, 85, 105, 0.12) !important;
-}
-
-/* 11: Individual Check - Soft Cyan Azure */
-.mep-heading-mep-acc-11:hover,
-.mep-heading-mep-acc-11.is-hovered {
-    background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%) !important;
-    border-left: 3.5px solid #0891b2 !important;
-}
-.mep-heading-mep-acc-11:hover .mep-mod-title,
-.mep-heading-mep-acc-11.is-hovered .mep-mod-title {
-    color: #155e75 !important;
-}
-.mep-heading-mep-acc-11:hover .mep-mod-chevron,
-.mep-heading-mep-acc-11.is-hovered .mep-mod-chevron {
-    color: #0891b2 !important;
-    background: rgba(8, 145, 178, 0.12) !important;
-}
-
-/* 12: MASTER Central DB - Soft Violet Crystal */
-.mep-heading-mep-acc-master:hover,
-.mep-heading-mep-acc-master.is-hovered {
-    background: linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%) !important;
-    border-left: 3.5px solid #7c3aed !important;
-}
-.mep-heading-mep-acc-master:hover .mep-mod-title,
-.mep-heading-mep-acc-master.is-hovered .mep-mod-title {
-    color: #5b21b6 !important;
-}
-.mep-heading-mep-acc-master:hover .mep-mod-chevron,
-.mep-heading-mep-acc-master.is-hovered .mep-mod-chevron {
-    color: #7c3aed !important;
-    background: rgba(124, 58, 237, 0.12) !important;
-}
-
-/* Common text & icon refinements for hovered menu items */
-.mep-module-heading:hover .mep-mod-title,
-.mep-module-heading.is-hovered .mep-mod-title {
-    font-family: 'Times New Roman', Times, serif !important;
+#dashboardSidebar .mep-module-accordion.is-open > .mep-module-heading .mep-mod-title,
+#dashboardSidebar .mep-module-heading.is-active-module .mep-mod-title {
+    color: #0369a1 !important; /* Authoritative Corporate Blue */
     font-weight: 700 !important;
-    letter-spacing: 0.2px !important;
-    text-shadow: none !important;
 }
-.mep-module-heading:hover .mep-mod-icon,
-.mep-module-heading.is-hovered .mep-mod-icon {
-    background: #ffffff !important;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1) !important;
-    transform: none !important;
-    -webkit-transform: none !important;
+
+#dashboardSidebar .mep-module-accordion.is-open > .mep-module-heading .mep-mod-star,
+#dashboardSidebar .mep-module-accordion.is-open > .mep-module-heading .mep-mod-icon,
+#dashboardSidebar .mep-module-heading.is-active-module .mep-mod-star,
+#dashboardSidebar .mep-module-heading.is-active-module .mep-mod-star svg,
+#dashboardSidebar .mep-module-heading.is-active-module .mep-mod-icon {
+    color: #0284c7 !important;
+    transform: scale(1.05) !important;
+    -webkit-transform: scale(1.05) !important;
+}
+
+#dashboardSidebar .mep-module-accordion.is-open > .mep-module-heading .mep-mod-chevron,
+#dashboardSidebar .mep-module-heading.is-active-module .mep-mod-chevron {
+    color: #0284c7 !important;
+    transform: rotate(180deg) !important;
+    -webkit-transform: rotate(180deg) !important;
+}
+
+/* Hovering while Active */
+#dashboardSidebar .mep-module-accordion.is-open > .mep-module-heading:hover,
+#dashboardSidebar .mep-module-heading.is-active-module:hover {
+    background: #dbeafe !important;
+    transform: translateY(-1px) !important;
+    -webkit-transform: translateY(-1px) !important;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.15) !important;
 }
 
 /* -----------------------------------------------------------------------------
