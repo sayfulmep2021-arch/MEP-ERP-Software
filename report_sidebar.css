@@ -3600,7 +3600,9 @@ body.page-locked .btn-action-export {
 }
 
 .live-time-text,
-.portal-nav .live-time-text {
+.portal-nav .live-time-text,
+#liveClockText,
+.live-clock-text {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: flex-end !important;

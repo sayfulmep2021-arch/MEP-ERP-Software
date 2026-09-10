@@ -2267,33 +2267,191 @@
                                 </div>
                             </div>
 
-                            <div class="donut-chart-wrap" style="position: relative;">
-                                <svg width="220" height="220" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+                            <div class="donut-chart-wrap" style="position: relative; display: flex; align-items: center; justify-content: center; min-height: 220px; padding: 4px 0;">
+                                <style>
+                                    .slice-solid-3d {
+                                        cursor: pointer;
+                                        transition: transform 0.35s cubic-bezier(0.2, 1.3, 0.45, 1), filter 0.3s ease;
+                                        outline: none;
+                                    }
+                                    .slice-solid-3d:hover {
+                                        filter: drop-shadow(0 22px 28px rgba(15, 41, 66, 0.38)) brightness(1.08) !important;
+                                    }
+                                    #sliceTarget:hover {
+                                        transform: translate(10px, -20px) scale(1.04);
+                                    }
+                                    #slicePending:hover {
+                                        transform: translate(-12px, -18px) scale(1.04);
+                                    }
+                                    #sliceAchieve:hover {
+                                        transform: translate(0px, -22px) scale(1.05);
+                                    }
+                                </style>
+                                <svg width="450" height="245" viewBox="0 0 450 245" style="overflow: visible; display:block; margin:0 auto; max-width: 100%; height: auto;" id="svg3dMaster" aria-label="Solid 3D Production Target vs Achievement vs Pending Pie Chart">
                                     <defs>
-                                        <linearGradient id="donutGradTarget" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stop-color="#f59e0b" />
-                                            <stop offset="100%" stop-color="#fbbf24" />
+                                        <!-- 1. Gold Gradients (Target) -->
+                                        <linearGradient id="gTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#fffbeb"/>
+                                            <stop offset="25%" stop-color="#fde68a"/>
+                                            <stop offset="60%" stop-color="#f59e0b"/>
+                                            <stop offset="100%" stop-color="#d97706"/>
                                         </linearGradient>
-                                        <linearGradient id="donutGradAchieve" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stop-color="#10b981" />
-                                            <stop offset="100%" stop-color="#34d399" />
+                                        <linearGradient id="gSide" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stop-color="#d97706"/>
+                                            <stop offset="60%" stop-color="#b45309"/>
+                                            <stop offset="100%" stop-color="#78350f"/>
                                         </linearGradient>
-                                        <linearGradient id="donutGradPending" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stop-color="#ef4444" />
-                                            <stop offset="100%" stop-color="#f87171" />
+                                        <linearGradient id="gCut" x1="0%" y1="0%" x2="100%" y2="50%">
+                                            <stop offset="0%" stop-color="#b45309"/>
+                                            <stop offset="100%" stop-color="#78350f"/>
                                         </linearGradient>
+
+                                        <!-- 2. Teal Gradients (Achievement) -->
+                                        <linearGradient id="tTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#a7f3d0"/>
+                                            <stop offset="30%" stop-color="#34d399"/>
+                                            <stop offset="70%" stop-color="#10b981"/>
+                                            <stop offset="100%" stop-color="#059669"/>
+                                        </linearGradient>
+                                        <linearGradient id="tSide" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stop-color="#059669"/>
+                                            <stop offset="60%" stop-color="#047857"/>
+                                            <stop offset="100%" stop-color="#064e3b"/>
+                                        </linearGradient>
+                                        <linearGradient id="tCut" x1="0%" y1="0%" x2="100%" y2="50%">
+                                            <stop offset="0%" stop-color="#047857"/>
+                                            <stop offset="100%" stop-color="#064e3b"/>
+                                        </linearGradient>
+
+                                        <!-- 3. Red Gradients (Pending) -->
+                                        <linearGradient id="rTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#fecaca"/>
+                                            <stop offset="30%" stop-color="#f87171"/>
+                                            <stop offset="70%" stop-color="#ef4444"/>
+                                            <stop offset="100%" stop-color="#dc2626"/>
+                                        </linearGradient>
+                                        <linearGradient id="rSide" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stop-color="#dc2626"/>
+                                            <stop offset="60%" stop-color="#b91c1c"/>
+                                            <stop offset="100%" stop-color="#7f1d1d"/>
+                                        </linearGradient>
+                                        <linearGradient id="rCut" x1="0%" y1="0%" x2="100%" y2="50%">
+                                            <stop offset="0%" stop-color="#b91c1c"/>
+                                            <stop offset="100%" stop-color="#7f1d1d"/>
+                                        </linearGradient>
+
+                                        <!-- Natural Subtle Vector Drop Shadow -->
+                                        <filter id="fCast" x="-15%" y="-15%" width="130%" height="130%">
+                                            <feDropShadow dx="0" dy="7" stdDeviation="5.5" flood-color="#0f2942" flood-opacity="0.18"/>
+                                        </filter>
                                     </defs>
-                                    <!-- Base Target Accent Ring (Yellow / Amber) -->
-                                    <circle cx="50" cy="50" r="38" fill="transparent" stroke="#fef3c7" stroke-width="14"></circle>
-                                    <!-- Segment 1: Achievement (Green / Emerald) -->
-                                    <circle id="donutArcAchieve" cx="50" cy="50" r="38" fill="transparent" stroke="url(#donutGradAchieve)" stroke-width="14" stroke-dasharray="45.44 238.76" stroke-dashoffset="0"></circle>
-                                    <!-- Segment 2: Pending (Red / Rose) -->
-                                    <circle id="donutArcPending" cx="50" cy="50" r="38" fill="transparent" stroke="url(#donutGradPending)" stroke-width="14" stroke-dasharray="193.32 238.76" stroke-dashoffset="-45.44"></circle>
+
+                                    <!-- SLICE 1: TARGET (Gold) -->
+                                    <g class="slice-solid-3d" id="sliceTarget" filter="url(#fCast)">
+                                        <!-- Solid Bottom Cap -->
+                                        <path d="M 235.8756934444398 130.44550739570064 L 247.6 62.7 A 135 68 0 0 1 346.5 169.4 Z" fill="#5c2607"/>
+                                        <!-- Cut Wall at a0 -->
+                                        <path d="M 235.9 92.4 L 247.6 24.7 L 247.6 62.7 L 235.9 130.4 Z" fill="url(#gCut)"/>
+                                        <!-- Cut Wall at a1 -->
+                                        <path d="M 235.9 92.4 L 346.5 131.4 L 346.5 169.4 L 235.9 130.4 Z" fill="url(#gCut)"/>
+                                        <!-- Outer Curved Front Wall -->
+                                        <path d="M 370.9 92.4 L 370.8 93.8 L 370.8 95.2 L 370.6 96.6 L 370.4 98.0 L 370.2 99.4 L 369.9 100.7 L 369.5 102.1 L 369.1 103.5 L 368.6 104.8 L 368.1 106.2 L 367.5 107.5 L 366.9 108.9 L 366.2 110.2 L 365.4 111.6 L 364.6 112.9 L 363.8 114.2 L 362.9 115.5 L 361.9 116.8 L 360.9 118.1 L 359.8 119.4 L 358.7 120.6 L 357.6 121.9 L 356.3 123.1 L 355.1 124.4 L 353.8 125.6 L 352.4 126.8 L 351.0 128.0 L 349.5 129.1 L 348.0 130.3 L 346.5 131.4 L 346.5 169.4 L 348.0 168.3 L 349.5 167.1 L 351.0 166.0 L 352.4 164.8 L 353.8 163.6 L 355.1 162.4 L 356.3 161.1 L 357.6 159.9 L 358.7 158.6 L 359.8 157.4 L 360.9 156.1 L 361.9 154.8 L 362.9 153.5 L 363.8 152.2 L 364.6 150.9 L 365.4 149.6 L 366.2 148.2 L 366.9 146.9 L 367.5 145.5 L 368.1 144.2 L 368.6 142.8 L 369.1 141.5 L 369.5 140.1 L 369.9 138.7 L 370.2 137.4 L 370.4 136.0 L 370.6 134.6 L 370.8 133.2 L 370.8 131.8 L 370.9 130.4 Z" fill="url(#gSide)"/>
+                                        <!-- Top Face -->
+                                        <path d="M 235.8756934444398 92.44550739570066 L 247.6 24.7 A 135 68 0 0 1 346.5 131.4 Z" fill="url(#gTop)" stroke="rgba(255,255,255,0.75)" stroke-width="1.5"/>
+                                        <path d="M 235.8756934444398 92.44550739570066 L 247.6 24.7 A 135 68 0 0 1 346.5 131.4 Z" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="0.8" style="transform: scale(0.96); transform-origin: 235.8756934444398px 92.44550739570066px;"/>
+
+                                        <!-- Label -->
+                                        <g transform="translate(306.8, 75.8)">
+                                            <text id="pie3DTargetVal" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="18" font-weight="900" style="font-family:'Segoe UI',sans-serif; text-shadow:0 2px 4px rgba(0,0,0,0.45);">
+                                                40,000
+                                            </text>
+                                            <text y="15" text-anchor="middle" dominant-baseline="central" fill="#fffbeb" font-size="9.5" font-weight="800" style="font-family:'Segoe UI',sans-serif; letter-spacing:0.8px; text-shadow:0 1px 3px rgba(0,0,0,0.35);">
+                                                TARGET
+                                            </text>
+                                        </g>
+                                    </g>
+
+                                    <!-- SLICE 3: PENDING (Red) -->
+                                    <g class="slice-solid-3d" id="slicePending" filter="url(#fCast)">
+                                        <!-- Solid Bottom Cap -->
+                                        <path d="M 214.60769515458674 129.97777777777776 L 104.0 169.0 A 135 68 0 0 1 226.4 62.2 Z" fill="#590f14"/>
+                                        <!-- Cut Wall at a3 -->
+                                        <path d="M 214.6 92.0 L 226.4 24.2 L 226.4 62.2 L 214.6 130.0 Z" fill="url(#rCut)"/>
+                                        <!-- Cut Wall at a2 -->
+                                        <path d="M 214.6 92.0 L 104.0 131.0 L 104.0 169.0 L 214.6 130.0 Z" fill="url(#rCut)"/>
+                                        <!-- Outer Curved Front Wall -->
+                                        <path d="M 104.0 131.0 L 102.5 129.8 L 101.0 128.7 L 99.5 127.5 L 98.1 126.3 L 96.7 125.1 L 95.4 123.9 L 94.1 122.7 L 92.9 121.4 L 91.8 120.2 L 90.6 118.9 L 89.6 117.6 L 88.6 116.3 L 87.6 115.0 L 86.7 113.7 L 85.9 112.4 L 85.1 111.1 L 84.3 109.8 L 83.6 108.4 L 83.0 107.1 L 82.4 105.7 L 81.9 104.4 L 81.4 103.0 L 81.0 101.6 L 80.6 100.3 L 80.3 98.9 L 80.1 97.5 L 79.9 96.1 L 79.7 94.7 L 79.6 93.4 L 79.6 92.0 L 79.6 130.0 L 79.6 131.4 L 79.7 132.7 L 79.9 134.1 L 80.1 135.5 L 80.3 136.9 L 80.6 138.3 L 81.0 139.6 L 81.4 141.0 L 81.9 142.4 L 82.4 143.7 L 83.0 145.1 L 83.6 146.4 L 84.3 147.8 L 85.1 149.1 L 85.9 150.4 L 86.7 151.7 L 87.6 153.0 L 88.6 154.3 L 89.6 155.6 L 90.6 156.9 L 91.8 158.2 L 92.9 159.4 L 94.1 160.7 L 95.4 161.9 L 96.7 163.1 L 98.1 164.3 L 99.5 165.5 L 101.0 166.7 L 102.5 167.8 L 104.0 169.0 Z" fill="url(#rSide)"/>
+                                        <!-- Top Face -->
+                                        <path d="M 214.60769515458674 91.97777777777777 L 104.0 131.0 A 135 68 0 0 1 226.4 24.2 Z" fill="url(#rTop)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+                                        <path d="M 214.60769515458674 91.97777777777777 L 104.0 131.0 A 135 68 0 0 1 226.4 24.2 Z" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8" style="transform: scale(0.96); transform-origin: 214.60769515458674px 91.97777777777777px;"/>
+
+                                        <!-- Label -->
+                                        <g transform="translate(146.8, 72.3)">
+                                            <text id="pie3DPendingPct" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="19" font-weight="900" style="font-family:'Segoe UI',sans-serif; text-shadow:0 2px 4px rgba(0,0,0,0.45);">
+                                                77.3%
+                                            </text>
+                                            <text y="15" text-anchor="middle" dominant-baseline="central" fill="#ffebee" font-size="9.5" font-weight="800" style="font-family:'Segoe UI',sans-serif; letter-spacing:0.8px; text-shadow:0 1px 3px rgba(0,0,0,0.35);">
+                                                PENDING
+                                            </text>
+                                        </g>
+                                    </g>
+
+                                    <!-- SLICE 2: ACHIEVEMENT (Teal) -->
+                                    <g class="slice-solid-3d" id="sliceAchieve" filter="url(#fCast)">
+                                        <!-- Solid Bottom Cap -->
+                                        <path d="M 225 141.05925925925925 L 335.6 180.1 A 135 68 0 0 1 114.4 180.1 Z" fill="#033024"/>
+                                        <!-- Cut Wall at a1 -->
+                                        <path d="M 225.0 103.1 L 335.6 142.1 L 335.6 180.1 L 225.0 141.1 Z" fill="url(#tCut)"/>
+                                        <!-- Cut Wall at a2 -->
+                                        <path d="M 225.0 103.1 L 114.4 142.1 L 114.4 180.1 L 225.0 141.1 Z" fill="url(#tCut)"/>
+                                        <!-- Outer Curved Front Wall (entire front) -->
+                                        <path d="M 335.6 142.1 L 330.4 145.5 L 324.8 148.9 L 318.8 152.0 L 312.4 154.9 L 305.6 157.6 L 298.5 160.1 L 291.1 162.3 L 283.5 164.3 L 275.6 166.1 L 267.5 167.6 L 259.2 168.8 L 250.8 169.8 L 242.2 170.5 L 233.6 170.9 L 225.0 171.1 L 216.4 170.9 L 207.8 170.5 L 199.2 169.8 L 190.8 168.8 L 182.5 167.6 L 174.4 166.1 L 166.5 164.3 L 158.9 162.3 L 151.5 160.1 L 144.4 157.6 L 137.6 154.9 L 131.2 152.0 L 125.2 148.9 L 119.6 145.5 L 114.4 142.1 L 114.4 180.1 L 119.6 183.5 L 125.2 186.9 L 131.2 190.0 L 137.6 192.9 L 144.4 195.6 L 151.5 198.1 L 158.9 200.3 L 166.5 202.3 L 174.4 204.1 L 182.5 205.6 L 190.8 206.8 L 199.2 207.8 L 207.8 208.5 L 216.4 208.9 L 225.0 209.1 L 233.6 208.9 L 242.2 208.5 L 250.8 207.8 L 259.2 206.8 L 267.5 205.6 L 275.6 204.1 L 283.5 202.3 L 291.1 200.3 L 298.5 198.1 L 305.6 195.6 L 312.4 192.9 L 318.8 190.0 L 324.8 186.9 L 330.4 183.5 L 335.6 180.1 Z" fill="url(#tSide)"/>
+                                        <!-- Top Face -->
+                                        <path d="M 225 103.05925925925926 L 335.6 142.1 A 135 68 0 0 1 114.4 142.1 Z" fill="url(#tTop)" stroke="rgba(255,255,255,0.85)" stroke-width="1.6"/>
+                                        <path d="M 225 103.05925925925926 L 335.6 142.1 A 135 68 0 0 1 114.4 142.1 Z" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="0.8" style="transform: scale(0.96); transform-origin: 225px 103.05925925925926px;"/>
+
+                                        <!-- Label -->
+                                        <g transform="translate(225, 143.9)">
+                                            <text id="pie3DAchievePct" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="20" font-weight="900" style="font-family:'Segoe UI',sans-serif; text-shadow:0 2px 4px rgba(0,0,0,0.45);">
+                                                22.7%
+                                            </text>
+                                            <text y="16" text-anchor="middle" dominant-baseline="central" fill="#ccfbf1" font-size="10" font-weight="800" style="font-family:'Segoe UI',sans-serif; letter-spacing:0.8px; text-shadow:0 1px 3px rgba(0,0,0,0.35);">
+                                                ACHIEVEMENT
+                                            </text>
+                                        </g>
+                                    </g>
                                 </svg>
-                                <div style="position: absolute; text-align: center; pointer-events: none;">
-                                    <div id="donutCenterPct" style="font-size: 1.45rem; font-weight: 900; color: #0f2942; line-height:1;">19.0%</div>
-                                    <div id="donutCenterLabel" style="font-size: 0.68rem; font-weight: 800; color: #10b981; text-transform: uppercase; letter-spacing: 0.5px; margin-top:3px;">Achievement</div>
-                                    <div id="donutCenterTarget" style="font-size: 0.65rem; font-weight: 700; color: #64748b; margin-top:2px;">Target: 40,000 PCS</div>
+
+                                <script>
+                                    // Interactive Layer Z-Stack Lifter for 3D Pie Chart
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        const svg = document.getElementById('svg3dMaster');
+                                        if (!svg) return;
+                                        const sliceElements = svg.querySelectorAll('.slice-solid-3d');
+                                        sliceElements.forEach(elem => {
+                                            elem.addEventListener('mouseenter', () => {
+                                                svg.appendChild(elem); // Elevate to top visual SVG layer
+                                            });
+                                            elem.addEventListener('mouseleave', () => {
+                                                // Restore standard depth sorting: Target in back, Pending middle, Achieve in front
+                                                const t = document.getElementById('sliceTarget');
+                                                const p = document.getElementById('slicePending');
+                                                const a = document.getElementById('sliceAchieve');
+                                                if (t) svg.appendChild(t);
+                                                if (p) svg.appendChild(p);
+                                                if (a) svg.appendChild(a);
+                                            });
+                                        });
+                                    });
+                                </script>
+
+                                <!-- Backwards-compatibility elements for graph update handlers -->
+                                <div style="display: none;" aria-hidden="true">
+                                    <span id="donutArcAchieve"></span>
+                                    <span id="donutArcPending"></span>
+                                    <span id="donutCenterPct"></span>
+                                    <span id="donutCenterLabel"></span>
+                                    <span id="donutCenterTarget"></span>
                                 </div>
                             </div>
                         </div>

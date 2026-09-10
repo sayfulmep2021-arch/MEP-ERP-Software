@@ -173,62 +173,7 @@
             border: 1px solid #bfdbfe;
         }
 
-        /* Fixed Stable Header Clock in Times New Roman - Zero Jitter */
-        .portal-nav .live-clock-badge,
-        .live-clock-badge {
-            width: 240px !important;
-            min-width: 240px !important;
-            max-width: 240px !important;
-            flex-shrink: 0 !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: flex-end !important;
-            gap: 10px !important;
-            font-family: 'Times New Roman', Times, serif !important;
-            user-select: none !important;
-        }
-        .portal-nav .live-clock-info,
-        .live-clock-info {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: flex-end !important;
-            justify-content: center !important;
-            gap: 1px !important;
-            font-family: 'Times New Roman', Times, serif !important;
-            text-align: right !important;
-        }
-        .portal-nav .live-day-text,
-        .live-day-text {
-            font-family: 'Times New Roman', Times, serif !important;
-            font-size: 0.86rem !important;
-            font-weight: 700 !important;
-            color: #334e68 !important;
-            line-height: 1.15 !important;
-            white-space: nowrap !important;
-            letter-spacing: 0.1px !important;
-        }
-        .portal-nav .live-time-text,
-        .live-time-text {
-            font-family: 'Times New Roman', Times, serif !important;
-            font-variant-numeric: tabular-nums !important;
-            font-feature-settings: "tnum" 1, "zero" 1 !important;
-            font-size: 0.98rem !important;
-            font-weight: 700 !important;
-            color: #334e68 !important;
-            line-height: 1.15 !important;
-            white-space: nowrap !important;
-            display: inline-block !important;
-            width: 96px !important;
-            min-width: 96px !important;
-            max-width: 96px !important;
-            text-align: right !important;
-        }
-        .smart-cloud-status-badge,
-        .smart-cloud-status-badge .cloud-pulse-dot {
-            animation: none !important;
-            transform: none !important;
-            transition: none !important;
-        }
+        /* Universal Stable Live Clock Standard inherited from corporate_design_system.css & report_sidebar.css */
 
         /* 6 Icon-Only Menu Action Buttons with Smooth Tooltip */
         .actions-group {
@@ -1293,21 +1238,9 @@
         }
 
         function initLiveClock() {
-            function updateClock() {
-                const now = new Date();
-                const dayEl = document.getElementById('liveDayText');
-                const timeEl = document.getElementById('liveTimeText');
-                if (dayEl) {
-                    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                    dayEl.innerText = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-                }
-                if (timeEl) {
-                    timeEl.innerText = now.toLocaleTimeString('en-US', { hour12: true });
-                }
+            if (typeof window.updateUniversalLiveClock === 'function') {
+                window.updateUniversalLiveClock();
             }
-            updateClock();
-            setInterval(updateClock, 1000);
         }
 
         function loadMasterData() {

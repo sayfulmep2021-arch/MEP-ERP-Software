@@ -850,6 +850,8 @@
                         <span class="live-time-text" id="liveTimeText">--:--:-- --</span>
                     </div>
                 `;
+                guardLiveTimeElements();
+                updateUniversalLiveClock(true);
 
                 let currentProf = { name: 'Sayful Islam', role: 'Senior Supervisor', photo: 'profile.jpg' };
                 try {
@@ -2212,10 +2214,10 @@
 
     // Universal Live Clock Engine for Report Pages - Tabular Monospace Zero Jitter Engine
     let _lastClockSecond = -1;
-    function updateUniversalLiveClock() {
+    function updateUniversalLiveClock(force) {
         const now = new Date();
         const curSecond = now.getSeconds();
-        if (_lastClockSecond === curSecond) return;
+        if (!force && _lastClockSecond === curSecond) return;
         _lastClockSecond = curSecond;
 
         const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -2233,14 +2235,29 @@
         document.querySelectorAll('#liveDayText, .live-day-text').forEach(el => {
             if (el.textContent !== dateStr) el.textContent = dateStr;
         });
-        document.querySelectorAll('#liveTimeText, .live-time-text').forEach(el => {
+        document.querySelectorAll('#liveTimeText, .live-time-text, #liveClockText, .live-clock-text').forEach(el => {
             el.innerHTML = slottedTime;
         });
     }
 
-    // Tamper-proof setter protection against legacy scripts setting raw innerText
+    function formatToSlottedTime(val) {
+        if (typeof val === 'string' && val.includes(':')) {
+            const clean = val.replace(/[\u202F\u00A0]/g, ' ').trim();
+            const parts = clean.split(/[:\s]+/);
+            if (parts.length >= 3) {
+                const hh = parts[0].padStart(2, '0');
+                const mm = parts[1].padStart(2, '0');
+                const ss = parts[2].padStart(2, '0');
+                const ap = (parts[3] || 'AM').toUpperCase();
+                return `<span class="t-digit">${hh[0]}</span><span class="t-digit">${hh[1]}</span><span class="t-colon">:</span><span class="t-digit">${mm[0]}</span><span class="t-digit">${mm[1]}</span><span class="t-colon">:</span><span class="t-digit">${ss[0]}</span><span class="t-digit">${ss[1]}</span> <span class="t-ampm">${ap}</span>`;
+            }
+        }
+        return val;
+    }
+
+    // Tamper-proof setter protection against legacy scripts setting raw innerText or textContent
     function guardLiveTimeElements() {
-        document.querySelectorAll('#liveTimeText, .live-time-text').forEach(el => {
+        document.querySelectorAll('#liveTimeText, .live-time-text, #liveClockText, .live-clock-text').forEach(el => {
             if (!el._timeGuarded) {
                 el._timeGuarded = true;
                 Object.defineProperty(el, 'innerText', {
@@ -2248,28 +2265,61 @@
                     enumerable: true,
                     get: function() { return this.textContent; },
                     set: function(val) {
-                        if (typeof val === 'string' && val.includes(':')) {
-                            const parts = val.trim().split(/[:\s]+/);
-                            if (parts.length >= 3) {
-                                const hh = parts[0].padStart(2, '0');
-                                const mm = parts[1].padStart(2, '0');
-                                const ss = parts[2].padStart(2, '0');
-                                const ap = parts[3] || 'AM';
-                                this.innerHTML = `<span class="t-digit">${hh[0]}</span><span class="t-digit">${hh[1]}</span><span class="t-colon">:</span><span class="t-digit">${mm[0]}</span><span class="t-digit">${mm[1]}</span><span class="t-colon">:</span><span class="t-digit">${ss[0]}</span><span class="t-digit">${ss[1]}</span> <span class="t-ampm">${ap}</span>`;
-                                return;
+                        this.innerHTML = formatToSlottedTime(val);
+                    }
+                });
+                Object.defineProperty(el, 'textContent', {
+                    configurable: true,
+                    enumerable: true,
+                    get: function() { return this.innerHTML; },
+                    set: function(val) {
+                        this.innerHTML = formatToSlottedTime(val);
+                    }
+                });
+            }
+        });
+
+        document.querySelectorAll('#liveDayText, .live-day-text').forEach(el => {
+            if (!el._dayGuarded) {
+                el._dayGuarded = true;
+                const normalizeDay = function(val) {
+                    if (typeof val === 'string') {
+                        const shortMap = {
+                            'Sun,': 'Sunday,',
+                            'Mon,': 'Monday,',
+                            'Tue,': 'Tuesday,',
+                            'Wed,': 'Wednesday,',
+                            'Thu,': 'Thursday,',
+                            'Fri,': 'Friday,',
+                            'Sat,': 'Saturday,'
+                        };
+                        for (let k in shortMap) {
+                            if (val.startsWith(k)) {
+                                return val.replace(k, shortMap[k]);
                             }
                         }
-                        this.innerHTML = val;
+                    }
+                    return val;
+                };
+                Object.defineProperty(el, 'innerText', {
+                    configurable: true,
+                    enumerable: true,
+                    get: function() { return this.textContent; },
+                    set: function(val) {
+                        this.textContent = normalizeDay(val);
                     }
                 });
             }
         });
     }
 
-    // Global neutralization of page-level competing timers
+    // Global neutralization of page-level competing timers & functions
     window.updateUniversalLiveClock = updateUniversalLiveClock;
     window.updateLiveClock = updateUniversalLiveClock;
     window.updateClock = updateUniversalLiveClock;
+    window.initLiveClock = function() {
+        updateUniversalLiveClock(true);
+    };
 
     function bootAllServices() {
         initFrozenSidebar();

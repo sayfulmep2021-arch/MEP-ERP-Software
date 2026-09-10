@@ -212,6 +212,14 @@ function renderProductionPerformanceDashboard(customData) {
         elCenterTarget.innerText = `Target: ${target.toLocaleString()} PCS`;
     }
 
+    // Update 3D Pie Chart vector text values
+    const el3DTarget = document.getElementById('pie3DTargetVal');
+    if (el3DTarget) el3DTarget.textContent = target.toLocaleString();
+    const el3DAchieve = document.getElementById('pie3DAchievePct');
+    if (el3DAchieve) el3DAchieve.textContent = `${achievePct}%`;
+    const el3DPending = document.getElementById('pie3DPendingPct');
+    if (el3DPending) el3DPending.textContent = `${pendingPct}%`;
+
     // Donut Legend
     const elLegendTarget = document.getElementById('legendTargetVal');
     if (elLegendTarget) {
