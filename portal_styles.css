@@ -5671,14 +5671,16 @@
     overflow-x: hidden !important;
 }
 
-/* Scrollable Viewport */
+/* Scrollable Viewport - Soft Elegant Pastel Gradient Background (Enterprise Depth) */
 .dashboard-content-viewport {
     flex: 1 !important;
     height: 100% !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     padding: 16px 22px 36px !important;
-    background: #f8fafc !important;
+    background: radial-gradient(ellipse 70% 50% at 18% 0%, rgba(219, 234, 254, 0.45) 0%, rgba(219, 234, 254, 0) 70%),
+                radial-gradient(ellipse 60% 45% at 85% 15%, rgba(224, 231, 255, 0.35) 0%, rgba(224, 231, 255, 0) 70%),
+                linear-gradient(160deg, #f8fafc 0%, #f1f5f9 45%, #e9eef5 100%) !important;
     box-sizing: border-box !important;
 }
 
@@ -5762,8 +5764,8 @@
     border-radius: 14px !important;
     padding: 16px 18px !important;
     position: relative !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
-    border: 1.5px solid #e2e8f0 !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+    border: 1.5px solid rgba(226, 232, 240, 0.9) !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
@@ -5979,10 +5981,10 @@
 
 .dash-chart-card {
     background: #ffffff !important;
-    border: 1.5px solid #e2e8f0 !important;
+    border: 1.5px solid rgba(226, 232, 240, 0.9) !important;
     border-radius: 14px !important;
     padding: 18px 20px !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.04) !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
@@ -8759,11 +8761,11 @@
     display: block !important;
 }
 
-/* 3. Typography: Times New Roman Semi-bold (Mark 2) */
+/* 3. Typography: Times New Roman Normal/Regular (Mark 1) */
 #dashboardSidebar .mep-mod-title {
     font-family: 'Times New Roman', Times, serif !important;
     font-size: 14.5px !important;
-    font-weight: 600 !important; /* Semi-bold / Medium weight: refined executive balance */
+    font-weight: 400 !important; /* Normal / Regular default weight per requirement */
     line-height: 1.35 !important;
     letter-spacing: 0.3px !important;
     color: #1e293b !important; /* Deep corporate slate */
@@ -8775,7 +8777,7 @@
     text-rendering: optimizeLegibility !important;
     display: flex !important;
     align-items: center !important;
-    transition: color 0.2s ease !important;
+    transition: color 0.15s ease, font-weight 0.15s ease !important;
 }
 
 /* Chevron */
@@ -8790,21 +8792,22 @@
     transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease !important;
 }
 
-/* 4. Premium Hover Interaction: Soft Pastel Blue Background + Subtle Floating Lift (Mark 3) */
+/* 4. Premium Hover Interaction: Soft Pastel Blue Background + BOLD text (Zero Jitter / Zero Shift) */
 #dashboardSidebar .mep-module-heading:hover,
 #dashboardSidebar .mep-module-heading.is-hovered {
     background: #edf5fd !important; /* Soft Premium Pastel Blue */
     border-color: rgba(191, 219, 254, 0.6) !important;
     border-left: 3.5px solid #60a5fa !important; /* Subtle pastel blue accent line */
-    transform: translateY(-1.5px) !important; /* Gentle floating / lift effect */
-    -webkit-transform: translateY(-1.5px) !important;
-    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.09), 0 1px 3px rgba(15, 23, 42, 0.04) !important; /* Subtle depth shadow */
+    transform: none !important; /* Zero shift / zero jump guarantee */
+    -webkit-transform: none !important;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.07) !important;
     z-index: 2 !important;
 }
 
 #dashboardSidebar .mep-module-heading:hover .mep-mod-title,
 #dashboardSidebar .mep-module-heading.is-hovered .mep-mod-title {
     color: #0c4a6e !important; /* Deep executive navy blue */
+    font-weight: 700 !important; /* Bold on hover ONLY per requirement */
 }
 
 #dashboardSidebar .mep-module-heading:hover .mep-mod-star,
@@ -8812,8 +8815,8 @@
 #dashboardSidebar .mep-module-heading.is-hovered .mep-mod-star,
 #dashboardSidebar .mep-module-heading.is-hovered .mep-mod-icon {
     color: #1d4ed8 !important; /* Rich vibrant blue */
-    transform: scale(1.1) !important;
-    -webkit-transform: scale(1.1) !important;
+    transform: none !important; /* Zero zoom / scale */
+    -webkit-transform: none !important;
 }
 
 #dashboardSidebar .mep-module-heading:hover .mep-mod-chevron,
@@ -8821,22 +8824,27 @@
     color: #0284c7 !important;
 }
 
-/* 5. Active State: Distinct Refined Premium Blue Highlight (Mark 4) */
+/* 5. Active State: Distinct Refined Premium Blue Highlight */
 #dashboardSidebar .mep-module-accordion.is-open > .mep-module-heading,
 #dashboardSidebar .mep-module-heading.is-active-module {
     background: #e0effe !important; /* Distinct Refined Premium Blue Highlight */
     border-color: #bfdbfe !important;
     border-left: 4px solid #0284c7 !important; /* Prominent Corporate Blue Active Line */
     box-shadow: 0 2px 8px rgba(2, 132, 199, 0.12) !important;
-    transform: translateY(0) !important;
-    -webkit-transform: translateY(0) !important;
+    transform: none !important;
+    -webkit-transform: none !important;
     z-index: 1 !important;
 }
 
 #dashboardSidebar .mep-module-accordion.is-open > .mep-module-heading .mep-mod-title,
 #dashboardSidebar .mep-module-heading.is-active-module .mep-mod-title {
     color: #0369a1 !important; /* Authoritative Corporate Blue */
-    font-weight: 700 !important;
+    font-weight: 600 !important;
+}
+
+#dashboardSidebar .mep-module-accordion.is-open > .mep-module-heading:hover .mep-mod-title,
+#dashboardSidebar .mep-module-heading.is-active-module:hover .mep-mod-title {
+    font-weight: 700 !important; /* Bold on hover */
 }
 
 #dashboardSidebar .mep-module-accordion.is-open > .mep-module-heading .mep-mod-star,

@@ -665,10 +665,18 @@
             navLeft.style.display = 'inline-flex';
             navLeft.style.alignItems = 'center';
 
-            // 2. Permanent Brand Bar - Smart Time Management (Exclusive Header Branding)
+            // 2. Permanent Brand Bar - Global Dynamic Module Header (Production Module, HRM Module, etc.)
+            let currentModName = 'Production Module';
+            try {
+                if (typeof getDynamicCurrentModuleName === 'function') {
+                    currentModName = getDynamicCurrentModuleName();
+                } else if (sessionStorage.getItem('portal_active_erp_module')) {
+                    currentModName = sessionStorage.getItem('portal_active_erp_module');
+                }
+            } catch(e) {}
             const brandCard = document.createElement('div');
             brandCard.className = 'smart-brand-card';
-            brandCard.innerHTML = `<span class="smart-brand-text">Smart Time Management</span>`;
+            brandCard.innerHTML = `<span class="smart-brand-text">${currentModName}</span>`;
             navLeft.appendChild(brandCard);
 
             // 3. Remove Link button from individual report pages per User Requirement #5 (Centralized in MIS "Show & Edit Link")
@@ -932,9 +940,9 @@
                     <!-- Main Heading ("মূল হেডিং") -->
                     <div class="mep-module-heading mep-heading-${mod.id} ${isThisActiveModule ? 'is-active-module' : ''}" onclick="toggleSidebarModule('${mod.id}')" title="Click to open/collapse ${mod.title}">
                         <div class="mep-mod-left">
-                            <div class="mep-mod-icon" style="background:${mod.iconBg}; color:${mod.iconColor};">
-                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                    ${mod.iconSvg}
+                            <div class="mep-mod-star mep-mod-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" class="mep-star-svg" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                                 </svg>
                             </div>
                             <div class="mep-mod-info">

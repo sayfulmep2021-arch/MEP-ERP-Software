@@ -361,10 +361,47 @@
             });
         }
 
+        function getDynamicCurrentModuleName() {
+            try {
+                const stored = sessionStorage.getItem('portal_active_erp_module');
+                if (stored) return stored;
+            } catch(e) {}
+
+            const path = (window.location.pathname || '').toLowerCase();
+            const query = (window.location.search || '').toLowerCase();
+
+            if (path.includes('hrm') || query.includes('view=hrm')) return 'HRM Module';
+            if (path.includes('user') || query.includes('view=user')) return 'User Module';
+            if (path.includes('mis') || query.includes('view=mis')) return 'MIS Module';
+            if (path.includes('warehouse') || query.includes('view=warehouse')) return 'Warehouse Module';
+
+            const currentView = (sessionStorage.getItem('portal_current_view') || '').toLowerCase();
+            if (currentView === 'hrm') return 'HRM Module';
+            if (currentView === 'user') return 'User Module';
+            if (currentView === 'mis') return 'MIS Module';
+            if (currentView === 'hub') return 'Warehouse Module';
+
+            return 'Production Module';
+        }
+
+        function updateDynamicModuleHeader(moduleName) {
+            if (!moduleName) {
+                moduleName = getDynamicCurrentModuleName();
+            }
+            try {
+                sessionStorage.setItem('portal_active_erp_module', moduleName);
+            } catch(e) {}
+
+            document.querySelectorAll('.smart-brand-text').forEach(function(el) {
+                el.textContent = moduleName;
+            });
+        }
+
         function switchToMainInterfaceView() {
             resetInactivityTimer();
             sessionStorage.setItem('portal_current_view', 'main');
             sessionStorage.removeItem('portal_hub_module');
+            updateDynamicModuleHeader('Production Module');
             var loginView = document.getElementById('loginView');
             var hubView = document.getElementById('departmentHubView');
             var dashView = document.getElementById('dashboardView');
@@ -407,6 +444,7 @@
         function switchToDepartmentHub(targetModuleId) {
             resetInactivityTimer();
             sessionStorage.setItem('portal_current_view', 'hub');
+            updateDynamicModuleHeader('Warehouse Module');
             var loginView = document.getElementById('loginView');
             var dashView = document.getElementById('dashboardView');
             var mainView = document.getElementById('mainInterfaceView');
@@ -504,6 +542,7 @@
             resetInactivityTimer();
             sessionStorage.setItem('portal_current_view', 'mis');
             sessionStorage.removeItem('portal_hub_module');
+            updateDynamicModuleHeader('MIS Module');
 
             var loginView = document.getElementById('loginView');
             var hubView = document.getElementById('departmentHubView');
@@ -561,6 +600,7 @@
             resetInactivityTimer();
             sessionStorage.setItem('portal_current_view', 'hrm');
             sessionStorage.removeItem('portal_hub_module');
+            updateDynamicModuleHeader('HRM Module');
             var loginView = document.getElementById('loginView');
             var hubView = document.getElementById('departmentHubView');
             var dashView = document.getElementById('dashboardView');
@@ -603,6 +643,7 @@
             resetInactivityTimer();
             sessionStorage.setItem('portal_current_view', 'user');
             sessionStorage.removeItem('portal_hub_module');
+            updateDynamicModuleHeader('User Module');
 
             var loginView = document.getElementById('loginView');
             var hubView = document.getElementById('departmentHubView');
@@ -2072,5 +2113,16 @@ window.closeChangeCredentialModal = closeChangeCredentialModal;
 window.toggleCredentialInputVisibility = toggleCredentialInputVisibility;
 window.confirmAndSaveCredential = confirmAndSaveCredential;
 window.syncSecurityStatusDisplays = syncSecurityStatusDisplays;
+window.getDynamicCurrentModuleName = getDynamicCurrentModuleName;
+window.updateDynamicModuleHeader = updateDynamicModuleHeader;
+
+// Auto-initialize Dynamic Module Header on Load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        updateDynamicModuleHeader();
+    });
+} else {
+    updateDynamicModuleHeader();
+}
 
 
