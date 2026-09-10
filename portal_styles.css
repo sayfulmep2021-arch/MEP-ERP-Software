@@ -2265,16 +2265,17 @@
 
         .sub-item-title {
             font-size: 0.77rem;
-            font-weight: 600;
+            font-weight: 400 !important;
             color: #334155;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            transition: color 0.15s ease;
+            transition: color 0.15s ease, font-weight 0.15s ease;
         }
 
         .sub-report-item:hover .sub-item-title {
-            color: #0284c7;
+            font-weight: 700 !important;
+            color: #0284c7 !important;
         }
 
         .sub-report-item.item-highlight-entry {
@@ -5671,16 +5672,15 @@
     overflow-x: hidden !important;
 }
 
-/* Scrollable Viewport - Soft Elegant Pastel Gradient Background (Enterprise Depth) */
+/* Scrollable Viewport - Soft Light Blue Background (Clean Gap Spacing) */
 .dashboard-content-viewport {
     flex: 1 !important;
     height: 100% !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     padding: 16px 22px 36px !important;
-    background: radial-gradient(ellipse 70% 50% at 18% 0%, rgba(219, 234, 254, 0.45) 0%, rgba(219, 234, 254, 0) 70%),
-                radial-gradient(ellipse 60% 45% at 85% 15%, rgba(224, 231, 255, 0.35) 0%, rgba(224, 231, 255, 0) 70%),
-                linear-gradient(160deg, #f8fafc 0%, #f1f5f9 45%, #e9eef5 100%) !important;
+    background-color: #ebf3fb !important;
+    background: #ebf3fb !important;
     box-sizing: border-box !important;
 }
 
@@ -5765,28 +5765,19 @@
     padding: 16px 18px !important;
     position: relative !important;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.04) !important;
-    border: 1.5px solid rgba(226, 232, 240, 0.9) !important;
+    border: 1.5px solid #d9e6f2 !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     min-height: 155px !important;
 }
 
-.dash-kpi-card.card-sales {
-    background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%) !important;
-    border-color: #bbf7d0 !important;
-}
-.dash-kpi-card.card-purchase {
-    background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%) !important;
-    border-color: #bfdbfe !important;
-}
-.dash-kpi-card.card-cashflow {
-    background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%) !important;
-    border-color: #fde68a !important;
-}
+.dash-kpi-card.card-sales,
+.dash-kpi-card.card-purchase,
+.dash-kpi-card.card-cashflow,
 .dash-kpi-card.card-account {
-    background: linear-gradient(180deg, #faf5ff 0%, #ffffff 100%) !important;
-    border-color: #e9d5ff !important;
+    background: #ffffff !important;
+    border-color: #d9e6f2 !important;
 }
 
 .kpi-head-row {
@@ -5818,9 +5809,10 @@
 
 .kpi-card-title {
     font-size: 0.82rem !important;
-    font-weight: 800 !important;
+    font-weight: 500 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5px !important;
+    transition: color 0.15s ease, font-weight 0.15s ease !important;
 }
 
 .card-sales .kpi-card-title { color: #15803d !important; }
@@ -5981,7 +5973,7 @@
 
 .dash-chart-card {
     background: #ffffff !important;
-    border: 1.5px solid rgba(226, 232, 240, 0.9) !important;
+    border: 1.5px solid #d9e6f2 !important;
     border-radius: 14px !important;
     padding: 18px 20px !important;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.04) !important;
@@ -6016,8 +6008,9 @@
 
 .chart-title-text {
     font-size: 0.98rem !important;
-    font-weight: 800 !important;
+    font-weight: 500 !important;
     color: #0f2942 !important;
+    transition: color 0.15s ease, font-weight 0.15s ease !important;
 }
 
 .chart-subtitle-text {
@@ -8883,36 +8876,52 @@
 
 .dash-kpi-card:hover,
 .dash-kpi-card.is-hovered {
-    transform: translateY(-3px) !important;
+    transform: none !important;
     z-index: 3 !important;
 }
 
-/* Card 1: Production Target - Subtle Green Depth Glow */
+.dash-kpi-card:hover .kpi-card-title {
+    font-weight: 700 !important;
+}
+
+/* Card 1: Production Target - Soft Pastel Emerald Hover */
 .dash-kpi-card.card-sales:hover,
 .dash-kpi-card.card-sales.is-hovered {
-    border-color: #4ade80 !important;
-    box-shadow: 0 12px 26px -4px rgba(22, 163, 74, 0.18), 0 4px 10px -2px rgba(22, 163, 74, 0.08) !important;
+    border-color: #86efac !important;
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.12) !important;
+}
+.dash-kpi-card.card-sales:hover .kpi-card-title {
+    color: #059669 !important;
 }
 
-/* Card 2: Achievement - Subtle Blue Depth Glow */
+/* Card 2: Achievement - Soft Pastel Blue Hover */
 .dash-kpi-card.card-purchase:hover,
 .dash-kpi-card.card-purchase.is-hovered {
-    border-color: #60a5fa !important;
-    box-shadow: 0 12px 26px -4px rgba(37, 99, 235, 0.18), 0 4px 10px -2px rgba(37, 99, 235, 0.08) !important;
+    border-color: #93c5fd !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.12) !important;
+}
+.dash-kpi-card.card-purchase:hover .kpi-card-title {
+    color: #2563eb !important;
 }
 
-/* Card 3: Pending - Subtle Amber Depth Glow */
+/* Card 3: Pending - Soft Pastel Amber Hover */
 .dash-kpi-card.card-cashflow:hover,
 .dash-kpi-card.card-cashflow.is-hovered {
-    border-color: #f59e0b !important;
-    box-shadow: 0 12px 26px -4px rgba(217, 119, 6, 0.18), 0 4px 10px -2px rgba(217, 119, 6, 0.08) !important;
+    border-color: #fcd34d !important;
+    box-shadow: 0 4px 14px rgba(217, 119, 6, 0.12) !important;
+}
+.dash-kpi-card.card-cashflow:hover .kpi-card-title {
+    color: #d97706 !important;
 }
 
-/* Card 4: Day Wise Target - Subtle Purple Depth Glow */
+/* Card 4: Day Wise Target - Soft Pastel Purple Hover */
 .dash-kpi-card.card-account:hover,
 .dash-kpi-card.card-account.is-hovered {
-    border-color: #c084fc !important;
-    box-shadow: 0 12px 26px -4px rgba(147, 51, 234, 0.18), 0 4px 10px -2px rgba(147, 51, 234, 0.08) !important;
+    border-color: #d8b4fe !important;
+    box-shadow: 0 4px 14px rgba(147, 51, 234, 0.12) !important;
+}
+.dash-kpi-card.card-account:hover .kpi-card-title {
+    color: #7c3aed !important;
 }
 
 /* -----------------------------------------------------------------------------
@@ -8928,8 +8937,8 @@
 .mep-nav-3d-btn.mep-btn-3d-dash.is-hovered {
     background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%) !important;
     border-color: #0284c7 !important;
-    transform: translateY(-2.5px) !important;
-    box-shadow: 0 8px 20px -3px rgba(2, 132, 199, 0.25), 0 3px 6px -1px rgba(15, 23, 42, 0.08) !important;
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.18) !important;
     z-index: 105 !important;
 }
 
@@ -8938,26 +8947,35 @@
 .mep-nav-3d-btn.mep-btn-3d-mod.is-hovered {
     background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%) !important;
     border-color: #fb923c !important;
-    transform: translateY(-2.5px) !important;
-    box-shadow: 0 8px 20px -3px rgba(249, 115, 22, 0.22), 0 3px 6px -1px rgba(15, 23, 42, 0.08) !important;
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.18) !important;
     z-index: 105 !important;
 }
 
 /* -----------------------------------------------------------------------------
-   ITEM 4: Pie Chart Card Smooth Floating Lift (and Balanced Executive Layout)
+   ITEM 4: Pie Chart Card Stationary Hover (Zero Layout Shift)
    ----------------------------------------------------------------------------- */
 .dash-pie-chart-card,
 .dash-chart-card {
-    transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.24s ease !important;
-    will-change: transform, box-shadow !important;
+    transition: box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.24s ease !important;
+    will-change: box-shadow !important;
+    transform: none !important;
 }
 
 .dash-pie-chart-card:hover,
-.dash-pie-chart-card.is-hovered {
-    transform: translateY(-3px) !important;
-    box-shadow: 0 14px 30px -4px rgba(15, 23, 42, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.05) !important;
-    border-color: #cbd5e1 !important;
+.dash-pie-chart-card.is-hovered,
+.dash-chart-card:hover,
+.dash-chart-card.is-hovered {
+    transform: none !important;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08) !important;
+    border-color: #93c5fd !important;
     z-index: 2 !important;
+}
+
+.dash-pie-chart-card:hover .chart-title-text,
+.dash-chart-card:hover .chart-title-text {
+    font-weight: 700 !important;
+    color: #0284c7 !important;
 }
 
 /* Rebalance layout after removing the middle submetrics row */

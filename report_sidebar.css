@@ -3181,15 +3181,15 @@ body.portal-view-only #inputQuantity {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
-    max-width: 36px !important;
-    min-height: 36px !important;
-    max-height: 36px !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
     padding: 0 !important;
     margin: 0 !important;
-    border-radius: 8px !important;
+    border-radius: 9px !important;
     cursor: pointer !important;
     user-select: none !important;
     flex-shrink: 0 !important;
@@ -3529,4 +3529,372 @@ body.page-locked .btn-action-export {
     opacity: 1 !important;
     visibility: visible !important;
     transform: translateX(-50%) translateY(2px) !important;
+}
+
+/* ==========================================================================
+   PERMANENT GLOBAL STANDARD: STABLE LIVE CLOCK COMPONENT (ZERO JITTER)
+   ========================================================================== */
+.live-clock-badge,
+.portal-nav .live-clock-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 10px !important;
+    padding: 0 4px !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: 250px !important;
+    min-width: 250px !important;
+    max-width: 250px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+    flex-shrink: 0 !important;
+    user-select: none !important;
+    box-sizing: border-box !important;
+    contain: layout !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+.live-clock-info,
+.portal-nav .live-clock-info {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    width: 140px !important;
+    min-width: 140px !important;
+    max-width: 140px !important;
+    gap: 1px !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    text-align: right !important;
+}
+
+.live-day-text,
+.portal-nav .live-day-text {
+    font-family: 'Times New Roman', Times, 'Playfair Display', serif !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    color: #334e68 !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    letter-spacing: 0.1px !important;
+    white-space: nowrap !important;
+    text-align: right !important;
+    display: block !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+.live-time-text,
+.portal-nav .live-time-text {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    font-variant-numeric: tabular-nums lining-nums !important;
+    font-feature-settings: "tnum" 1, "lnum" 1, "zero" 1 !important;
+    font-family: 'Times New Roman', Times, 'Playfair Display', serif !important;
+    font-size: 0.98rem !important;
+    font-weight: 800 !important;
+    color: #0f2942 !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: nowrap !important;
+    text-align: right !important;
+    letter-spacing: 0.2px !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    width: 100px !important;
+    min-width: 100px !important;
+    max-width: 100px !important;
+}
+
+.live-time-text .t-digit,
+.live-time-text .t-num-slot {
+    display: inline-block !important;
+    width: 8.5px !important;
+    min-width: 8.5px !important;
+    max-width: 8.5px !important;
+    text-align: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+.live-time-text .t-colon {
+    display: inline-block !important;
+    width: 4px !important;
+    min-width: 4px !important;
+    max-width: 4px !important;
+    text-align: center !important;
+    margin: 0 1px !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+.live-time-text .t-ampm,
+.live-time-text .t-ampm-slot {
+    display: inline-block !important;
+    width: 25px !important;
+    min-width: 25px !important;
+    max-width: 25px !important;
+    text-align: left !important;
+    margin-left: 3px !important;
+    font-size: 0.80rem !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+.smart-cloud-status-badge,
+.smart-cloud-status-badge .cloud-pulse-dot {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+/* ==========================================================================
+   PERMANENT GLOBAL STANDARD: SIDEBAR SUB-ITEMS (REGULAR DEFAULT / BOLD PASTEL HOVER)
+   ========================================================================== */
+.sub-report-item .sub-item-title,
+.mep-sub-item .sub-item-title {
+    font-weight: 400 !important;
+    color: #334155 !important;
+    transition: color 0.15s ease, font-weight 0.15s ease !important;
+}
+
+.sub-report-item:hover .sub-item-title,
+.mep-sub-item:hover .sub-item-title {
+    font-weight: 700 !important;
+    color: #0284c7 !important;
+}
+
+.sub-report-item.active-page .sub-item-title,
+.mep-sub-item.active-page .sub-item-title,
+.sub-report-item.item-highlight-entry .sub-item-title {
+    font-weight: 700 !important;
+    color: #0369a1 !important;
+}
+
+.sub-report-item,
+.sub-report-item:hover,
+.mep-sub-item,
+.mep-sub-item:hover {
+    transform: none !important;
+}
+
+/* ==========================================================================
+   PERMANENT GLOBAL STANDARD: ICON-ONLY REPORT ACTION BUTTONS & TOOLTIPS
+   Matching Screenshot 3 (Uniform Size, Alignment, Zero Duplicate Text)
+   ========================================================================== */
+.btn-action-icon,
+.actions-group button,
+.bom-actions-group button,
+.header-actions button,
+.header-action-group button,
+.damage-actions-group button,
+.stock-actions-group button,
+.report-action-buttons button {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+    border-radius: 9px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    position: relative !important;
+    border: 1.5px solid transparent !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+    user-select: none !important;
+    line-height: 1 !important;
+}
+
+.btn-action-icon:hover,
+.actions-group button:hover,
+.bom-actions-group button:hover,
+.header-actions button:hover,
+.header-action-group button:hover,
+.damage-actions-group button:hover,
+.stock-actions-group button:hover,
+.report-action-buttons button:hover {
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+.btn-action-icon svg,
+.actions-group button svg,
+.bom-actions-group button svg,
+.header-actions button svg,
+.header-action-group button svg,
+.damage-actions-group button svg,
+.stock-actions-group button svg,
+.report-action-buttons button svg {
+    display: block !important;
+    transform: none !important;
+    transition: none !important;
+    pointer-events: none !important;
+}
+
+/* Button Variants */
+.btn-action-icon.btn-add,
+.actions-group .btn-add,
+.bom-actions-group .btn-add,
+.header-actions .btn-add,
+.header-action-group .btn-add {
+    background: #16a34a !important;
+    color: #ffffff !important;
+    border-color: #16a34a !important;
+}
+.btn-action-icon.btn-add:hover,
+.actions-group .btn-add:hover,
+.bom-actions-group .btn-add:hover {
+    background: #15803d !important;
+}
+
+.btn-action-icon.btn-replace,
+.btn-action-icon.btn-paste,
+.actions-group .btn-replace,
+.bom-actions-group .btn-paste,
+.header-actions .btn-paste {
+    background: #7c3aed !important;
+    color: #ffffff !important;
+    border-color: #7c3aed !important;
+}
+.btn-action-icon.btn-replace:hover,
+.btn-action-icon.btn-paste:hover,
+.actions-group .btn-replace:hover,
+.bom-actions-group .btn-paste:hover {
+    background: #6d28d9 !important;
+}
+
+.btn-action-icon.btn-save,
+.actions-group .btn-save,
+.bom-actions-group .btn-save,
+.header-actions .btn-save {
+    background: #0284c7 !important;
+    color: #ffffff !important;
+    border-color: #0284c7 !important;
+}
+.btn-action-icon.btn-save:hover,
+.actions-group .btn-save:hover,
+.bom-actions-group .btn-save:hover {
+    background: #0369a1 !important;
+}
+
+.btn-action-icon.btn-export,
+.actions-group .btn-export,
+.bom-actions-group .btn-export,
+.header-actions .btn-export {
+    background: #ffffff !important;
+    color: #334155 !important;
+    border-color: #cbd5e1 !important;
+}
+.btn-action-icon.btn-export:hover,
+.actions-group .btn-export:hover,
+.bom-actions-group .btn-export:hover {
+    background: #f1f5f9 !important;
+    border-color: #94a3b8 !important;
+}
+
+.btn-action-icon.btn-print,
+.actions-group .btn-print,
+.bom-actions-group .btn-print,
+.header-actions .btn-print {
+    background: #ffffff !important;
+    color: #334155 !important;
+    border-color: #cbd5e1 !important;
+}
+.btn-action-icon.btn-print:hover,
+.actions-group .btn-print:hover,
+.bom-actions-group .btn-print:hover {
+    background: #f1f5f9 !important;
+    border-color: #94a3b8 !important;
+}
+
+.btn-action-icon.btn-reset,
+.actions-group .btn-reset,
+.bom-actions-group .btn-reset,
+.header-actions .btn-reset {
+    background: #fff1f2 !important;
+    color: #e11d48 !important;
+    border-color: #fecdd3 !important;
+}
+.btn-action-icon.btn-reset:hover,
+.actions-group .btn-reset:hover,
+.bom-actions-group .btn-reset:hover {
+    background: #ffe4e6 !important;
+    border-color: #fda4af !important;
+}
+
+/* Premium ERP Tooltip for Icon-Only Toolbar Buttons */
+.btn-action-icon[data-tooltip]::after,
+.actions-group button[data-tooltip]::after,
+.bom-actions-group button[data-tooltip]::after,
+.header-actions button[data-tooltip]::after,
+.header-action-group button[data-tooltip]::after,
+.damage-actions-group button[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0f172a;
+    color: #ffffff;
+    padding: 5px 9px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    line-height: 1.2 !important;
+}
+
+.btn-action-icon:hover::after,
+.actions-group button:hover::after,
+.bom-actions-group button:hover::after,
+.header-actions button:hover::after,
+.header-action-group button:hover::after,
+.damage-actions-group button:hover::after {
+    opacity: 1;
+    visibility: visible;
 }

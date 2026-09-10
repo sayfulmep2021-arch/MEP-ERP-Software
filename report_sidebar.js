@@ -236,15 +236,18 @@
         'daily_production_plan.html',
         'daily_production_received_assemble.html',
         'check_floor_stock.html',
-        'master.html'
+        'master.html',
+        'rm_requirement_summary_bom.html'
     ];
 
     function isPageEditable(page) {
         const p = (page || getCurrentPage() || '').toLowerCase().split('?')[0].split('#')[0];
-        return EDITABLE_PAGES_REGISTRY.includes(p);
+        if (EDITABLE_PAGES_REGISTRY.includes(p)) return true;
+        if (document.querySelector('.excel-cell-input, .cell-editable, table.excel-table tbody td input, table.bom-table')) return true;
+        return false;
     }
 
-    let isPageLocked = true; // Default state is ALWAYS LOCKED on page load/refresh
+    let isPageLocked = true; // Permanent Standard: Default state is ALWAYS LOCKED on page load/refresh
 
     function showPageLockToast(msg, type) {
         type = type || 'warn';
@@ -274,10 +277,11 @@
 
     function findPageActionContainer() {
         const candidates = [
+            '.bom-actions-group',
+            '.actions-group',
             '.header-action-group',
             '.header-actions',
             '.damage-actions-group',
-            '.bom-actions-group',
             '.stock-actions-group',
             '.report-action-buttons',
             '.header-controls',
@@ -290,64 +294,88 @@
         return null;
     }
 
-    function getCentralPageLockStates() {
-        try {
-            const raw = localStorage.getItem('portal_page_lock_states');
-            return raw ? JSON.parse(raw) : {};
-        } catch(e) {
-            return {};
-        }
-    }
-
-    function isCurrentPageLocked() {
-        if (isViewOnlyUser) return true;
-        const curPage = (getCurrentPage() || '').toLowerCase().split('?')[0].split('#')[0];
-        if (!isPageEditable(curPage)) return false;
-        const states = getCentralPageLockStates();
-        // If explicitly unlocked (false), allow editing; otherwise default to locked (true)
-        if (states[curPage] === false) {
-            return false;
-        }
-        return true;
-    }
-
     function removePageLockBtns() {
         document.querySelectorAll('.smart-page-lock-btn, #smartPageLockBtn').forEach(b => b.remove());
     }
 
     function injectPageLockBtn() {
-        // Individual lock button removed per user requirement #3. Centralized in MIS "Lock and Unlock Page".
-        removePageLockBtns();
-        updateLockStateUI();
+        const curPage = getCurrentPage();
+        if (!isPageEditable(curPage)) {
+            removePageLockBtns();
+            return;
+        }
+
+        const container = findPageActionContainer();
+        if (!container) return;
+
+        let lockBtn = document.getElementById('smartPageLockBtn');
+        if (!lockBtn) {
+            lockBtn = document.createElement('button');
+            lockBtn.type = 'button';
+            lockBtn.id = 'smartPageLockBtn';
+            lockBtn.setAttribute('aria-label', 'Toggle Page Lock Mode');
+            lockBtn.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                togglePageLock();
+            };
+            // Insert at the beginning of the action button group
+            if (container.firstChild) {
+                container.insertBefore(lockBtn, container.firstChild);
+            } else {
+                container.appendChild(lockBtn);
+            }
+        }
+        updateLockBtnUI();
     }
 
-    function updateLockStateUI() {
-        isPageLocked = isCurrentPageLocked();
-        removePageLockBtns();
-
+    function updateLockBtnUI() {
+        const lockBtn = document.getElementById('smartPageLockBtn');
         if (isPageLocked) {
             if (document.body) {
                 document.body.classList.add('page-locked');
                 document.body.classList.remove('page-unlocked');
-            } else if (document.documentElement) {
-                document.documentElement.classList.add('page-locked');
+            }
+            if (lockBtn) {
+                if (isViewOnlyUser) {
+                    lockBtn.className = 'smart-page-lock-btn locked view-only';
+                    lockBtn.setAttribute('data-tooltip', '🔒 View Only (Locked)');
+                    lockBtn.innerHTML = `<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
+                } else {
+                    lockBtn.className = 'smart-page-lock-btn locked';
+                    lockBtn.setAttribute('data-tooltip', '🔒 Page Locked (Click to Unlock)');
+                    lockBtn.innerHTML = `<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
+                }
             }
         } else {
             if (document.body) {
                 document.body.classList.remove('page-locked');
                 document.body.classList.add('page-unlocked');
-            } else if (document.documentElement) {
-                document.documentElement.classList.remove('page-locked');
+            }
+            if (lockBtn) {
+                lockBtn.className = 'smart-page-lock-btn unlocked';
+                lockBtn.setAttribute('data-tooltip', '🔓 Page Unlocked (Click to Lock)');
+                lockBtn.innerHTML = `<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>`;
             }
         }
     }
 
-    function updateLockBtnUI() {
-        updateLockStateUI();
+    function updateLockStateUI() {
+        updateLockBtnUI();
     }
 
     function togglePageLock() {
-        showPageLockToast('🔒 Page locking is managed centrally in MIS Module -> Lock and Unlock Page.', 'warn');
+        if (isViewOnlyUser) {
+            showPageLockToast('🔒 View-Only Mode: You cannot unlock or edit this page.', 'warn');
+            return;
+        }
+        isPageLocked = !isPageLocked;
+        updateLockBtnUI();
+        if (isPageLocked) {
+            showPageLockToast('🔒 Page Locked. Manual editing disabled.', 'locked');
+        } else {
+            showPageLockToast('🔓 Page Unlocked. Direct editing enabled.', 'unlocked');
+        }
     }
 
     function logPageLockAudit(action, page, pageTitle, timeStr) {
@@ -401,8 +429,9 @@
         if (!el) return false;
         if (isSearchOrFilterControl(el)) return false;
 
-        if (el.closest('.excel-table tbody, .data-table tbody, table tbody, .data-row, tr.data-row')) return true;
-        if (el.matches('.excel-cell-input, .excel-cell-text, .cell-input, [contenteditable="true"]')) return true;
+        if (el.isContentEditable || el.getAttribute('contenteditable') === 'true' || el.closest('[contenteditable="true"]')) return true;
+        if (el.closest('.excel-table tbody, .data-table tbody, table tbody, .data-row, tr.data-row, table.bom-table tbody')) return true;
+        if (el.matches('.excel-cell-input, .excel-cell-text, .cell-input, .cell-editable, [contenteditable="true"]')) return true;
 
         if (el.closest('.modal-backdrop, .entry-modal, #newEntryModal, #pasteModal, #componentModal')) {
             if (el.closest('.modal-close-btn, .btn-modal-cancel, .btn-close')) return false;
@@ -427,12 +456,12 @@
             return false;
         }
 
-        if (btn.matches('.btn-save, .btn-save-plan, .btn-add, .btn-add-item, .btn-paste, .btn-action-paste, .btn-action-import, .btn-del-row, .btn-table-del, .btn-row-del, .btn-action-delete, .btn-action-edit, .btn-action-primary, .btn-action-add')) {
+        if (btn.matches('.btn-save, .btn-save-plan, .btn-add, .btn-add-item, .btn-paste, .btn-replace, .btn-reset, .btn-action-paste, .btn-action-replace, .btn-action-reset, .btn-action-import, .btn-del-row, .btn-table-del, .btn-row-del, .btn-action-delete, .btn-action-edit, .btn-action-primary, .btn-action-add')) {
             return true;
         }
 
         const oc = btn.getAttribute('onclick') || '';
-        if (/(openNewEntryModal|openPasteModal|openAddItemModal|openDamageModal|openAddComponentModal|save|Save|del|delete|Delete|addRow|removeRow|editRow|clearAll|updateRow)/i.test(oc)) {
+        if (/(openNewEntryModal|openPasteModal|openAddItemModal|openReplaceItemModal|openDamageModal|openAddComponentModal|save|Save|del|delete|Delete|addRow|removeRow|editRow|clearAll|updateRow|resetToDefaultData)/i.test(oc)) {
             if (!/export/i.test(oc)) {
                 return true;
             }
@@ -472,13 +501,11 @@
             }
 
             if (isEditableDataTarget(e.target)) {
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') {
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
-                    e.target.blur();
-                    showPageLockToast('🔒 Editing Disabled. Click the Lock icon button to edit.', 'warn');
-                    return false;
-                }
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                if (typeof e.target.blur === 'function') e.target.blur();
+                showPageLockToast('🔒 Editing Disabled. Click the Lock icon button to edit.', 'warn');
+                return false;
             }
         }, true);
 
@@ -682,22 +709,63 @@
             // 3. Remove Link button from individual report pages per User Requirement #5 (Centralized in MIS "Show & Edit Link")
             document.querySelectorAll('.btn-action-link, #btnLinkDetails').forEach(el => el.remove());
 
-            // 4. Setup Icon-Only Action Buttons & Premium Tooltips across all toolbars
-            document.querySelectorAll('.header-actions, .header-action-group, .damage-actions-group').forEach(tb => {
+            // 4. Setup Icon-Only Action Buttons & Premium Tooltips across all toolbars (Universal Standard matching Screenshot 3)
+            const toolbarSelectors = [
+                '.bom-actions-group',
+                '.actions-group',
+                '.header-actions',
+                '.header-action-group',
+                '.damage-actions-group',
+                '.stock-actions-group',
+                '.report-action-buttons',
+                '.header-controls',
+                '.action-btn-group'
+            ];
+            document.querySelectorAll(toolbarSelectors.join(', ')).forEach(tb => {
                 tb.querySelectorAll('button').forEach(btn => {
-                    btn.removeAttribute('title');
-                    const txt = btn.textContent.trim();
-                    if (!btn.getAttribute('data-tooltip')) {
-                        if (txt.includes('Link')) btn.setAttribute('data-tooltip', 'Link');
-                        else if (txt.includes('Save')) btn.setAttribute('data-tooltip', 'Save Changes');
-                        else if (txt.includes('Plan')) btn.setAttribute('data-tooltip', 'Production Plan');
-                        else if (txt.includes('Add')) btn.setAttribute('data-tooltip', 'Add Item');
-                        else if (txt.includes('Export') || txt.includes('CSV')) btn.setAttribute('data-tooltip', 'Export CSV');
-                        else if (txt.includes('Print')) btn.setAttribute('data-tooltip', 'Print');
-                        else if (txt.includes('Paste') || txt.includes('Import')) btn.setAttribute('data-tooltip', 'Paste / Import');
-                        else if (txt.length > 0) btn.setAttribute('data-tooltip', txt);
+                    if (btn.classList.contains('smart-page-lock-btn')) return;
+
+                    const origTitle = btn.getAttribute('title') || '';
+                    const rawTxt = btn.textContent.trim();
+                    btn.removeAttribute('title'); // Eliminate duplicate browser default black tooltip
+
+                    // Resolve tooltip label
+                    let label = btn.getAttribute('data-tooltip') || '';
+                    if (!label) {
+                        if (rawTxt.includes('Add') || origTitle.includes('Add')) label = 'Add New Item';
+                        else if (rawTxt.includes('Save') || origTitle.includes('Save')) label = 'Save Changes';
+                        else if (rawTxt.includes('Paste') || origTitle.includes('Paste') || rawTxt.includes('Import') || origTitle.includes('Import')) label = 'Paste Excel Data';
+                        else if (rawTxt.includes('Replace') || origTitle.includes('Replace')) label = 'Replace Item';
+                        else if (rawTxt.includes('Export') || origTitle.includes('Export') || rawTxt.includes('CSV') || origTitle.includes('CSV')) label = 'Export CSV';
+                        else if (rawTxt.includes('Print') || origTitle.includes('Print')) label = 'Print';
+                        else if (rawTxt.includes('Reset') || origTitle.includes('Reset')) label = 'Reset Factory Data';
+                        else if (rawTxt.includes('Plan') || origTitle.includes('Plan')) label = 'Production Plan';
+                        else if (rawTxt.length > 0) label = rawTxt;
+                        else if (origTitle.length > 0) label = origTitle;
                     }
+                    if (label) {
+                        btn.setAttribute('data-tooltip', label);
+                        btn.setAttribute('aria-label', label);
+                    }
+
+                    // Ensure icon-only: Strip raw text nodes while preserving SVGs
+                    Array.from(btn.childNodes).forEach(node => {
+                        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                            node.textContent = '';
+                        }
+                    });
                     btn.querySelectorAll('span:not(.erp-tooltip)').forEach(s => s.style.display = 'none');
+
+                    // Standardize classes matching rm_requirement_summary_bom.html
+                    btn.classList.add('btn-action-icon');
+                    if (label.includes('Add') || btn.classList.contains('btn-add')) btn.classList.add('btn-add');
+                    else if (label.includes('Save') || btn.classList.contains('btn-save')) btn.classList.add('btn-save');
+                    else if (label.includes('Paste') || label.includes('Replace') || btn.classList.contains('btn-paste') || btn.classList.contains('btn-replace')) {
+                        btn.classList.add('btn-paste');
+                    }
+                    else if (label.includes('Export') || label.includes('CSV') || btn.classList.contains('btn-export')) btn.classList.add('btn-export');
+                    else if (label.includes('Print') || btn.classList.contains('btn-print')) btn.classList.add('btn-print');
+                    else if (label.includes('Reset') || btn.classList.contains('btn-reset')) btn.classList.add('btn-reset');
                 });
             });
 
@@ -2206,6 +2274,7 @@
     function bootAllServices() {
         initFrozenSidebar();
         enforceViewOnlyRestrictions();
+        initPageLockProtection();
         injectPageLockBtn();
         updateLockBtnUI();
         guardLiveTimeElements();
